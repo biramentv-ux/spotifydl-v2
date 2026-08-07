@@ -1,0 +1,53 @@
+# Fly.io deployment configuration for SpotifyDL v2
+# Docs: https://fly.io/docs/reference/configuration/
+
+app = "spotifydl-v2"
+primary_region = "fra"  # Frankfurt - closest for EU. Change to "iad" for US East, "lhr" for UK
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+  SERVER_PORT = "3000"
+  SERVER_HOST = "0.0.0.0"
+  LOG_LEVEL = "info"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = false   # Keep running for WebSocket + Telegram bot
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+  [http_service.concurrency]
+    type = "connections"
+    hard_limit = 1000
+    soft_limit = 500
+
+[[http_service.checks]]
+  grace_period = "10s"
+  interval = "30s"
+  method = "GET"
+  timeout = "5s"
+  tls_skip_verify = false
+  path = "/health"
+
+[[vm]]
+  size = "shared-cpu-1x"      # Free tier: shared CPU
+  memory = "512mb"            # Free tier: 256MB min, 512MB recommended
+  cpus = 1
+
+# Persistent volume for downloads, logs, config, plugins
+# Create first with: fly volumes create spotifydl_data --size 3 --region fra
+[[mounts]]
+  source = "spotifydl_data"
+  destination = "/app/data"
+  processes = ["app"]
+
+# Optional: second mount for build cache (native module)
+# [[mounts]]
+#   source = "spotifydl_build"
+#   destination = "/app/build"
+#   processes = ["app"]

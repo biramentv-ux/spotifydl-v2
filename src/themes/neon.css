@@ -1,0 +1,62 @@
+:root {
+  --bg-primary: #0d0221;
+  --bg-secondary: #150634;
+  --bg-elevated: #1e0848;
+  --text-primary: #e0d6f5;
+  --text-secondary: #9d8ec4;
+  --accent: #ff00ff;
+  --accent-hover: #ff44ff;
+  --danger: #ff3366;
+  --warning: #ffcc00;
+  --info: #00ccff;
+  --border: #2d1b69;
+  --shadow: rgba(255, 0, 255, 0.3);
+  --font-family: 'Courier New', monospace;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+}
+
+.card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  box-shadow: 0 0 12px var(--shadow);
+}
+
+.btn-primary {
+  background: transparent;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  padding: 12px 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s;
+  box-shadow: 0 0 8px var(--shadow);
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  color: var(--bg-primary);
+  box-shadow: 0 0 20px var(--shadow);
+}
+
+.progress-bar {
+  background: var(--bg-elevated);
+  border-radius: 2px;
+  height: 6px;
+  border: 1px solid var(--accent);
+}
+
+.progress-bar-fill {
+  background: linear-gradient(90deg, var(--accent), var(--info));
+  border-radius: 2px;
+  height: 100%;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 8px var(--shadow);
+}

@@ -1,0 +1,75 @@
+# =============================================================================
+# SpotifyDL v2 — CI/CD Pipeline
+# Auto-deploys to Fly.io on push to main branch
+# =============================================================================
+
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Job 1: Test & Build
+  # ---------------------------------------------------------------------------
+  test:
+    name: Test & Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Run tests
+        run: npm test -- --passWithNoTests
+
+  # ---------------------------------------------------------------------------
+  # Job 2: Deploy to Fly.io (Primary)
+  # ---------------------------------------------------------------------------
+  deploy-fly:
+    name: Deploy to Fly.io
+    needs: test
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Deploy to Fly.io
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+  # ---------------------------------------------------------------------------
+  # Job 3: Deploy to Render (Mirror / Backup)
+  # ---------------------------------------------------------------------------
+  deploy-render:
+    name: Deploy to Render (Mirror)
+    needs: test
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Render
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{"clearCache": true}' \
+            "https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys"

@@ -1,0 +1,41 @@
+# =============================================================================
+# Render.com Blueprint — SpotifyDL v2 Mirror Deployment
+# https://render.com/docs/blueprint-spec
+# =============================================================================
+
+services:
+  # Main web service
+  - type: web
+    name: spotifydl-v2
+    runtime: docker
+    plan: free          # Change to 'starter' or higher for production
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SERVER_PORT
+        value: "3000"
+      - key: SERVER_HOST
+        value: "0.0.0.0"
+      - key: LOG_LEVEL
+        value: info
+      - key: SPOTIFY_CLIENT_ID
+        sync: false     # Set manually in Render Dashboard
+      - key: SPOTIFY_CLIENT_SECRET
+        sync: false
+      - key: NEO4J_URI
+        value: "neo4j+s://your-aura-instance.databases.neo4j.io"
+      - key: NEO4J_PASSWORD
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+    healthCheckPath: /health
+    autoDeploy: true
+    # Disk for persistent downloads/logs (comment out on free plan if not available)
+    # disk:
+    #   name: spotifydl-data
+    #   mountPath: /app/data
+    #   sizeGB: 1

@@ -1,0 +1,62 @@
+{
+  "spotify": {
+    "clientId": "",
+    "clientSecret": "",
+    "redirectUri": "http://localhost:3000/callback",
+    "scopes": ["user-read-private", "user-read-email", "playlist-read-private", "user-library-read"]
+  },
+  "neo4j": {
+    "uri": "bolt://localhost:7687",
+    "user": "neo4j",
+    "password": ""
+  },
+  "telegram": {
+    "botToken": "",
+    "webhookUrl": "",
+    "adminChatId": ""
+  },
+  "cloud": {
+    "googleDrive": {
+      "clientId": "",
+      "clientSecret": "",
+      "redirectUri": ""
+    },
+    "dropbox": {
+      "accessToken": ""
+    }
+  },
+  "download": {
+    "concurrency": 3,
+    "outputDir": "./downloads",
+    "format": "mp3",
+    "quality": "high"
+  },
+  "visualizer": {
+    "enabled": true,
+    "defaultMode": "waveform",
+    "ffmpegPath": "ffmpeg"
+  },
+  "plugins": {
+    "enabled": true,
+    "directory": "./plugins",
+    "timeout": 5000
+  },
+  "server": {
+    "port": 3000,
+    "host": "0.0.0.0",
+    "cors": {
+      "origin": "*",
+      "methods": ["GET", "POST", "PUT", "DELETE"]
+    }
+  },
+  "xp": {
+    "baseThreshold": 100,
+    "multiplier": 1.5,
+    "dailyBonus": 50
+  },
+  "updater": {
+    "checkInterval": 86400000,
+    "autoUpdate": false,
+    "channel": "stable"
+  }
+}

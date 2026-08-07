@@ -1,0 +1,1 @@
+# 🎵 SpotifyDL v2 — Advanced Spotify Downloader with Hybrid Engines & AI Recommendations, GraphQL API, WebSocket Streaming, Telegram Bot, Neo4j Graph DB, ML Engine, Plugin System, and 5 Web UI Themes. Deploy-ready for Fly.io (primary) and Render (mirror). Free tier compatible.

@@ -1,0 +1,56 @@
+:root {
+  --bg-primary: #f5f5f5;
+  --bg-secondary: #ffffff;
+  --bg-elevated: #eeeeee;
+  --text-primary: #191414;
+  --text-secondary: #535353;
+  --accent: #1db954;
+  --accent-hover: #169c45;
+  --danger: #e22134;
+  --warning: #f59b23;
+  --info: #2e77d0;
+  --border: #e0e0e0;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+}
+
+.card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 500px;
+  padding: 12px 32px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  transform: scale(1.04);
+}
+
+.progress-bar {
+  background: var(--bg-elevated);
+  border-radius: 500px;
+  height: 4px;
+}
+
+.progress-bar-fill {
+  background: var(--accent);
+  border-radius: 500px;
+  height: 100%;
+  transition: width 0.3s ease;
+}

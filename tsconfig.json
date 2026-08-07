@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "lib": ["ES2022"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["src/core/*"],
+      "@auth/*": ["src/auth/*"],
+      "@download/*": ["src/download/*"],
+      "@metadata/*": ["src/metadata/*"],
+      "@plugins/*": ["src/plugins/*"],
+      "@visualizer/*": ["src/visualizer/*"],
+      "@graphql/*": ["src/graphql/*"],
+      "@neo4j/*": ["src/neo4j/*"],
+      "@ml/*": ["src/ml/*"],
+      "@websocket/*": ["src/websocket/*"],
+      "@bot/*": ["src/bot/*"],
+      "@webhook/*": ["src/webhook/*"],
+      "@cloud/*": ["src/cloud/*"],
+      "@updater/*": ["src/updater/*"],
+      "@utils/*": ["src/utils/*"],
+      "@extractor/*": ["src/extractor/*"],
+      "@api/*": ["src/api/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "tests"]
+}
